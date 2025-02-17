@@ -1,3 +1,5 @@
+// pojo: Plain Old Java Object, 说到底他是object
+
 package part1.common.pojo;
 
 import lombok.AllArgsConstructor;
