@@ -21,6 +21,7 @@ public class SimpleRPCRPCServer implements RpcServer {
     @Override
     public void start(int port) {
         try {
+            // 创建一个 ServiceSocket 实例，用于在指定的port端口上监听客户端的连接请求
             ServerSocket serverSocket=new ServerSocket(port);
             System.out.println("服务器启动了");
             while (true) {

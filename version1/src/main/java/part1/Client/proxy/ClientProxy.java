@@ -15,9 +15,12 @@ import java.lang.reflect.Proxy;
  * @version 1.0
  * @create 2024/2/6 16:49
  */
+
+// ClientProxy 是 JDK 动态代理 的实现类
 @AllArgsConstructor
 public class ClientProxy implements InvocationHandler {
-    //传入参数service接口的class对象，反射封装成一个request
+    // 传入参数service接口的class对象，反射封装成一个request
+    // 初始化代理类时传入 host 和 port
     private String host;
     private int port;
 
@@ -29,11 +32,13 @@ public class ClientProxy implements InvocationHandler {
                 .interfaceName(method.getDeclaringClass().getName())
                 .methodName(method.getName())
                 .params(args).paramsType(method.getParameterTypes()).build();
-        //IOClient.sendRequest 和服务端进行数据传输
+        //IOClient.sendRequest 和服务端进行数据传输，把请求发出去，并接受 RpcResponse响应
         RpcResponse response= IOClient.sendRequest(host,port,request);
+        //获取服务端返回的结果，并返回给调用者
         return response.getData();
     }
      public <T>T getProxy(Class<T> clazz){
+        //使用 Proxy.newProxyInstance 方法动态创建一个代理对象，传入类加载器、需要代理的接口和调用处理程序
         Object o = Proxy.newProxyInstance(clazz.getClassLoader(), new Class[]{clazz}, this);
         return (T)o;
     }

@@ -20,7 +20,7 @@ import java.lang.reflect.Proxy;
  */
 public class ClientProxy implements InvocationHandler {
     //传入参数service接口的class对象，反射封装成一个request
-
+    //可选择Netty客户端或者简易实现客户端
     private RpcClient rpcClient;
     public ClientProxy(String host,int port,int choose){
         switch (choose){
@@ -35,6 +35,7 @@ public class ClientProxy implements InvocationHandler {
         rpcClient=new NettyRpcClient(host,port);
     }
     //jdk动态代理，每一次代理对象调用方法，都会经过此方法增强（反射获取request对象，socket发送到服务端）
+    //下面的跟part1的没有区别，只是在上面多了一个选择
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         //构建request

@@ -323,3 +323,29 @@ service 包：定义服务接口，描述系统中可供调用的业务功能。
 接口的实现类通常被称为实现类（Implementation Class）或接口的实现。这些类通过 implements 关键字实现接口中定义的方法，从而提供具体的功能。
 
 common包下面有三个包：message负责client和server间通信；pojo负责放实体；service负责业务功能
+
+PID（Process ID，进程标识符） 是 操作系统为每个进程分配的唯一标识号，用于区分不同的进程。
+
+当一个程序启动时，操作系统会创建一个进程，并分配一个唯一的 PID，用于管理和跟踪该进程。
+
+##### Class<?> 是什么？
+Class<T> 是 Java 反射机制中的 Class 类型，表示 某个类的运行时类型。
+
+Class<?> 使用了 通配符 ?，表示 它可以是任意类型的 Class（即 Class 对象，不限定具体类型）。
+
+##### clazz是什么？
+在 Java 中，clazz 通常是 Class<T> 类型的变量名，用于存储 某个类的 Class 对象。
+
+clazz 不是 Java 的关键字，而是 开发者的命名习惯，类似于 obj 代表对象，num 代表数字。
+
+```java
+Class<?> clazz = String.class;
+System.out.println(clazz.getName()); // 输出：java.lang.String
+```
+
+全限定名（FQN, Fully Qualified Name） 指的是 类或接口的完整路径，包括包名和类名。
+
+📌 Channel 在 Netty 中是什么？
+在 Netty 里，Channel 表示一个开放的网络连接，它是 数据读写的核心组件，类似于 Java 的 Socket，但更强大。
+
+

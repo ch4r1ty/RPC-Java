@@ -19,8 +19,19 @@ import part2.Client.netty.handler.NettyClientHandler;
 public class NettyClientInitializer extends ChannelInitializer<SocketChannel> {
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
-        ChannelPipeline pipeline = ch.pipeline();
+        ChannelPipeline pipeline = ch.pipeline();   //初始化，每个SocketChannel都有一个独立的管道(pipeline)，用于定义数据的处理流程
+
+
+//        Netty 的 ChannelPipeline, 也就是下面的pipeline.addLast()结构和队列类似，但 它不仅仅是队列，而是一个双向责任链。
+
+
         //消息格式 【长度】【消息体】，解决沾包问题
+        /*
+        * 参数含义：
+        * Integer.MAX_VALUE: 允许的最大帧长度
+        * 0, 4: 表示长度字段的其实位置和长度
+        * 0, 4: 去掉长度字段后，计算实际数据的偏移量
+        * */
         pipeline.addLast(
                 new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE,0,4,0,4));
         //计算当前待发送消息的长度，写入到前4个字节中

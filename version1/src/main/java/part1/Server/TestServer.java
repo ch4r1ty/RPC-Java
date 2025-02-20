@@ -14,12 +14,12 @@ import part1.Server.provider.ServiceProvider;
  */
 public class TestServer {
     public static void main(String[] args) {
-        UserService userService=new UserServiceImpl();
+        UserService userService=new UserServiceImpl();  //创建服务实现类
 
-        ServiceProvider serviceProvider=new ServiceProvider();
-        serviceProvider.provideServiceInterface(userService);
+        ServiceProvider serviceProvider=new ServiceProvider();  //实例化服务注册中心，用于管理所有可供客户端调用的服务
+        serviceProvider.provideServiceInterface(userService);   //注册服务
 
-        RpcServer rpcServer=new SimpleRPCRPCServer(serviceProvider);
-        rpcServer.start(9999);
+        RpcServer rpcServer=new SimpleRPCRPCServer(serviceProvider);    //实例化服务端
+        rpcServer.start(9999);  //启动服务端
     }
 }

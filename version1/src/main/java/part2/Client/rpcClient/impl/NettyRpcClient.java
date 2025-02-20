@@ -20,13 +20,17 @@ import part2.Client.rpcClient.RpcClient;
 public class NettyRpcClient implements RpcClient {
     private String host;
     private int port;
-    private static final Bootstrap bootstrap;
+    private static final Bootstrap bootstrap;    //在 Netty 里，Bootstrap 是 客户端启动类，用于 创建 Netty 客户端并建立连接
     private static final EventLoopGroup eventLoopGroup;
     public NettyRpcClient(String host,int port){
         this.host=host;
         this.port=port;
     }
     //netty客户端初始化
+    /*
+    * 在 Java 中，static {} 是静态代码块，用于在 类加载时 执行一次初始化逻辑。
+    它的作用类似于 构造方法，但只执行一次，用于初始化 静态变量。
+    */
     static {
         eventLoopGroup = new NioEventLoopGroup();
         bootstrap = new Bootstrap();

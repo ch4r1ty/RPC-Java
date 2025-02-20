@@ -46,8 +46,11 @@ public class WorkThread implements Runnable{
         //反射调用方法
         Method method=null;
         try {
+            // 获得方法对象
             method= service.getClass().getMethod(rpcRequest.getMethodName(), rpcRequest.getParamsType());
+            // 通过反射调用方法
             Object invoke=method.invoke(service,rpcRequest.getParams());
+            // 封装响应对象并返回
             return RpcResponse.sussess(invoke);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
