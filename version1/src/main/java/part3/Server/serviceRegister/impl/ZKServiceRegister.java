@@ -37,12 +37,14 @@ public class ZKServiceRegister implements ServiceRegister {
     public void register(String serviceName, InetSocketAddress serviceAddress) {
         try {
             // serviceName创建成永久节点，服务提供者下线时，不删服务名，只删地址
+//            if 语句里的代码 可能会生成 /MyRPC/serviceName 目录，但不会生成完整的 /MyRPC/serviceName/IP:PORT
+//            所以有再下面的步骤
             if(client.checkExists().forPath("/" + serviceName) == null){
                 client.create().creatingParentsIfNeeded().withMode(CreateMode.PERSISTENT).forPath("/" + serviceName);
             }
-            // 路径地址，一个/代表一个节点
+            // 生成服务实例的路径：路径地址，一个/代表一个节点
             String path = "/" + serviceName +"/"+ getServiceAddress(serviceAddress);
-            // 临时节点，服务器下线就删除节点
+            // 临时节点，服务器下线就删除节点：EPHEMERAL-服务器下线，Zookeeper 自动删除该节点
             client.create().creatingParentsIfNeeded().withMode(CreateMode.EPHEMERAL).forPath(path);
         } catch (Exception e) {
             System.out.println("此服务已存在");

@@ -33,6 +33,9 @@ public class ZKServiceCenter implements ServiceCenter{
         System.out.println("zookeeper 连接成功");
     }
     //根据服务名（接口名）返回地址
+//      也就是：从 Zookeeper 获取 serviceName 对应的所有服务器
+//      默认返回第一个服务器（后续可以优化负载均衡）
+//      用于 RPC 客户端查找可用服务
     @Override
     public InetSocketAddress serviceDiscovery(String serviceName) {
         try {
@@ -52,6 +55,8 @@ public class ZKServiceCenter implements ServiceCenter{
                 serverAddress.getPort();
     }
     // 字符串解析为地址
+//    把 InetSocketAddress 转换成 "IP:PORT" 字符串
+//用于在 Zookeeper 里存储服务实例地址
     private InetSocketAddress parseAddress(String address) {
         String[] result = address.split(":");
         return new InetSocketAddress(result[0], Integer.parseInt(result[1]));
