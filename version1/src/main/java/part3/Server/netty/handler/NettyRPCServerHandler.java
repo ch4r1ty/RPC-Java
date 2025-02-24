@@ -22,7 +22,7 @@ public class NettyRPCServerHandler extends SimpleChannelInboundHandler<RpcReques
     private ServiceProvider serviceProvider;
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, RpcRequest request) throws Exception {
-        RpcResponse response = getResponse(request);
+        RpcResponse response = getResponse(request); // 在下面定义了getResponse()
         ctx.writeAndFlush(response);
         ctx.close();
     }
@@ -31,6 +31,8 @@ public class NettyRPCServerHandler extends SimpleChannelInboundHandler<RpcReques
         cause.printStackTrace();
         ctx.close();
     }
+
+    // getResponse()方法通过反射机制，根据请求中的方法名和参数调用对应的服务实现类中的方法。调用完成后会返回RpcResponse
     private RpcResponse getResponse(RpcRequest rpcRequest){
         //得到服务名
         String interfaceName=rpcRequest.getInterfaceName();

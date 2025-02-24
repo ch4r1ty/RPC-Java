@@ -34,6 +34,7 @@ public class ClientProxy implements InvocationHandler {
                 .params(args).paramsType(method.getParameterTypes()).build();
         //数据传输
         RpcResponse response= rpcClient.sendRequest(request);
+        //拿到服务端返回的信息
         return response.getData();
     }
      public <T>T getProxy(Class<T> clazz){
