@@ -28,6 +28,7 @@ public class ServiceProvider {
         this.serviceRegister=new ZKServiceRegister();
     }
 
+    //遍历接口名时，将服务注册到服务中心
     public void provideServiceInterface(Object service){
         String serviceName=service.getClass().getName();
         Class<?>[] interfaceName=service.getClass().getInterfaces();
@@ -35,7 +36,7 @@ public class ServiceProvider {
         for (Class<?> clazz:interfaceName){
             //本机的映射表
             interfaceProvider.put(clazz.getName(),service);
-            //在注册中心注册服务
+            //在注册中心注册服务(ZooKeeper)
             serviceRegister.register(clazz.getName(),new InetSocketAddress(host,port));
         }
     }

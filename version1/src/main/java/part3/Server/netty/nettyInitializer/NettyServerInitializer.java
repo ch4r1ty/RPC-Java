@@ -40,7 +40,7 @@ public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
                 return Class.forName(className);
             }
         }));
-
+        // 将NettyRPCServerHandler添加到ChannelPipeline中，使其成为数据处理链中的一个环节
         pipeline.addLast(new NettyRPCServerHandler(serviceProvider));
     }
 }
