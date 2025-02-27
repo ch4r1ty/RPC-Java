@@ -349,6 +349,6 @@ System.out.println(clazz.getName()); // 输出：java.lang.String
 在 Netty 里，Channel 表示一个开放的网络连接，它是 数据读写的核心组件，类似于 Java 的 Socket，但更强大。
 
 
-在 Zookeeper 里，节点（ZNode） 是 数据存储和组织的基本单位，类似于 文件系统的目录。
+在 Zookeeper 里，节点（ZNode） 是 数据存储和组织的基本单位，类似于 文件系统的目录
 
 Curator 是一个 Java 库（包），用于操作 Zookeeper。Curator 作为 Zookeeper 的 Java 客户端，可以创建、读取、修改和删除这些 ZNode
